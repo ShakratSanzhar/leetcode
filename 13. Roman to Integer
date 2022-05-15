@@ -1,0 +1,29 @@
+/**
+Given a roman numeral, convert it to an integer.
+*/ 
+
+class Solution {
+    public int romanToInt(String s) {
+        int prevNumber = getArabicNumber(s.charAt(s.length()-1));
+        int result = prevNumber;
+        for (int i = s.length() - 2; i >= 0; i--) {
+            int currentNumber = getArabicNumber(s.charAt(i));
+            result += currentNumber < prevNumber? -currentNumber : currentNumber;
+            prevNumber = currentNumber;
+        }
+        return result;
+    }
+    
+    public int getArabicNumber(char s) {
+        return switch(s) {
+                case 'I' -> 1;
+                case 'V' -> 5;
+                case 'X' -> 10;
+                case 'L' -> 50;
+                case 'C' -> 100;
+                case 'D' -> 500;
+                case 'M' -> 1000;
+                default -> 0;
+        };
+    }
+}
